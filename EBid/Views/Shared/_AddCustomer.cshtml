@@ -1,0 +1,106 @@
+﻿@model EBid.Models.Customer
+
+
+@if (ViewBag.IsAdmin)
+{
+    <h4>Add New Customer Details</h4>
+}
+else
+{
+    <h4>Personal Details</h4>
+}
+<hr />
+
+<form asp-action="AddCustomer" asp-controller="Customer" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="MiddleName" class="control-label"></label>
+            <input asp-for="MiddleName" class="form-control" />
+            <span asp-validation-for="MiddleName" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+            <span class="text-danger">@ViewBag.Email</span>
+        </div>
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="Phone" class="control-label"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+            <span class="text-danger">@ViewBag.Phone</span>
+        </div>
+        <div class="form-group mb-3 col-sm">
+            <label for="customerPhoto" class="control-label">Select Photo</label>
+            <input type="file" id="customerPhoto" name="customerPhoto" class="form-control" required/>
+            <span class="invalid-feedback">please select photo</span>
+        </div>
+    </div>
+    <h3 class="mt-5 bi bi-house-door-fill"> Address</h3>
+    <hr />
+    <div class="row">
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="Line1" class="control-label"></label>
+            <input asp-for="Line1" class="form-control" />
+            <span asp-validation-for="Line1" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="Line2" class="control-label"></label>
+            <input asp-for="Line2" class="form-control" />
+            <span asp-validation-for="Line2" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="Landmark" class="control-label"></label>
+            <input asp-for="Landmark" class="form-control" />
+            <span asp-validation-for="Landmark" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="City" class="control-label"></label>
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="State" class="control-label"></label>
+            <input asp-for="State" class="form-control" />
+            <span asp-validation-for="State" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="Country" class="control-label"></label>
+            <input asp-for="Country" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3 col-sm">
+            <label asp-for="PostalCode" class="control-label"></label>
+            <input asp-for="PostalCode" class="form-control" />
+            <span asp-validation-for="PostalCode" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group mb-3 col-sm d-flex justify-content-end gap-3">
+            <input type="submit" value="Create" class="btn btn-primary px-4" />
+            <input type="reset" value="clear" class="btn btn-secondary px-4" />
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

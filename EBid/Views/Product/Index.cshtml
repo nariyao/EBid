@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="d-flex flex-wrap p-4 gap-4">
+    <div>
+        <a asp-route="AddProduct" class="btn btn-secondary fs-3 fw-bolder p-5 bi bi-person-fill-add"> Add Product</a>
+    </div>
+    <div>
+        <a asp-route="ListProducts" asp-route-isDeleted="false" class="btn btn-secondary fs-3 fw-bolder p-5 bi bi-person-rolodex"> List Products</a>
+    </div>
+    <div>
+        <a asp-route="PutOnAuction" class="btn btn-secondary fs-3 fw-bolder p-5"> Put OnAuction</a>
+    </div>
+    <div>
+        <a asp-route="ListOnAuction" class="btn btn-secondary fs-3 fw-bolder p-5 bi bi-card-list"> OnAuction</a>
+    </div>
+
+</div>
+

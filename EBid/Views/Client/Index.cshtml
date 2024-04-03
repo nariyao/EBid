@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Dashdoard: Clients ";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="d-flex flex-wrap p-4 gap-4">
+    <div>
+        <a asp-route="AddClient" class="btn btn-secondary fs-3 fw-bolder p-5 bi bi-person-fill-add"> Add Clients</a>
+    </div>
+    <div>
+        <a asp-route="ListClients" asp-route-isDeleted="false" class="btn btn-secondary fs-3 fw-bolder p-5 bi bi-person-rolodex"> List Clients</a>
+    </div>
+</div>

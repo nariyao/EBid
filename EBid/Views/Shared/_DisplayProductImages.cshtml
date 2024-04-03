@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Photo>;
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="h-100 d-flex flex-column gap-2" style="width:95px;height100%;overflow-y:auto;">
+    @foreach (var photo in Model)
+    {
+        <div class="" style="width:80px;height:80px;">
+            <img src=@photo.Url alt=@photo.Name data-photoId=@photo.PhotoId onmouseover="showImg('@photo.Url')" class="border border-2 w-100 h-100" />
+        </div>
+    }
+</div>
+<div class="p-2" style="width: calc(100% - 100px); height:100%">
+    <div class="" style="width: 100%;  height:100%">
+        <img src="@Model.First().Url" alt="@Model.First().Name" id="showImage" style="max-width:100%; max-height: 100%"/>
+    </div>
+</div>
+<script>
+    function showImg(src) {
+        document.getElementById("showImage").src = src;
+    }
+</script>

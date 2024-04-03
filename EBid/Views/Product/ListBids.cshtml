@@ -1,0 +1,60 @@
+﻿@model IEnumerable<EBid.Models.Bid>
+
+@{
+    ViewData["Title"] = "ListBids";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h1>Bidding list</h1>
+
+<table class="table">
+    <thead class="bg-secondary text-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BidId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BiddingPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BiddingDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuctionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerId)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BiddingPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BiddingDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Auction.AuctionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.City)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

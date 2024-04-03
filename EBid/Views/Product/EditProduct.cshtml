@@ -1,0 +1,147 @@
+﻿@model EBid.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product Details";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h4>EditProduct</h4>
+<hr />
+
+<form asp-action="EditProduct" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ProductId" value="@Model.ProductId" />
+    <div class="row">
+        <div class="col-4 ps-4">
+            <div class="form-group mb-3">
+                <label class="control-label">Select Client</label>
+                <select asp-for="ClientId" class="form-control" value="@Model.ClientId">
+                    <option value="">------- select client ------</option>
+                    @if (ViewBag.clients != null)
+                    {
+                        @foreach (var client in ViewBag.clients)
+                        {
+                            <option value="@client.ClientId">@($"{client.FirstName} {client.MiddleName} {client.LastName} - {client.Email}") </option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ClientId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label for="productPhotos" class="control-label">Select product photos</label>
+                <input type="file" id="productPhotos" name="productPhotos" class="form-control" multiple/>
+            </div>
+            <div class="form-group mb-3 d-flex flex-wrap gap-2 justify-content-between">
+                @foreach(var photo in Model.Photos)
+                {
+                    <div class="d-flex" width="50" height="100">
+                        <img src="@photo.Url" alt="@photo.Name" width="100" height="100" class=" border border-1 border-dark" />
+                        <div class="bi bi-trash2-fill bg-danger p-3 align-content-center" style="cursor:pointer" height="100%" onclick="deletePhoto(this,'@photo.PhotoId')"></div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-8 ps-4">
+            <div class="row">
+                <lable class="control-label">Details</lable>
+            </div>
+            <div class="row">
+                <div class="col-12" id="newRow"> 
+                    @{dynamic pdCount = 0;}
+                    @foreach (var pd in Model.ProductDetails)
+                    {
+                        <div class="row mb-3 g-0" id=@ViewBag.rowId>
+                            <input type="hidden" name="ProductDetails[@pdCount].Id" value=@pd.Id />
+                            <div class="col-4">
+                                <input type="text" name="ProductDetails[@pdCount].DetailName" value="@pd.DetailName" class="form-control rounded-0" placeholder="fieldname" />
+                            </div>
+                            <div class="col-8">
+                                <input type="text" name="ProductDetails[@pdCount].DetailValue" value="@pd.DetailValue" class="form-control rounded-0" placeholder="value" />
+                            </div>
+                        </div>
+                        pdCount++;
+                    }
+                    <span data-pd-count="@pdCount" id="pdCount"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12  d-flex justify-content-end">
+                    <button type="button" role="AddRow" id="addRow" class="btn btn-info bi bi-add-fill">Add Field & Value </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+            <div class="form-group">
+                <input type="submit" value="Add Product" class="btn btn-primary px-5" />
+                <a asp-route="ProductDetails" asp-route-ProductId="@Model.ProductId" class="btn btn-secondary px-4">Close</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        var count = document.getElementById("pdCount").dataset.pdCount;
+
+        $("#addRow").click(function () {
+            var id = UniqueId();
+            var html = `<div class="row mb-3 g-0" id="${id}">
+                                    <input type="hidden" name="ProductDetails[${count}].Id" value= ${id} />
+                                    <div class="col-4">
+                                                <input type="text" name="ProductDetails[${count}].DetailName" class="form-control rounded-0" placeholder="fieldname" />
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="text" name="ProductDetails[${count}].DetailValue" class="form-control rounded-0" placeholder="value" />
+                                    </div>
+                                </div>`
+            $('#newRow').append(html);
+            count++;
+        });
+
+        function UniqueId() {
+            return Math.floor(Math.random() * Date.now())
+        }
+
+        function deletePhoto(event, id) {
+            console.log(event.parentNode);
+            if (!confirm("are you sure you want to delete it? ")) {
+                return;
+            }
+            $.ajax({
+                url: `/dashboard/products/edit-product-details/delete-photo?PhotoId=${id}`, // Replace with your API endpoint
+                type: 'DELETE',
+                success: function (result) {
+                    // Handle the result here
+                    console.log(result);
+                    console.log(result.msg);
+                    if(result.status == "succes"){
+                        event.parentNode.remove();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Handle any errors
+                    console.error('Error deleting resource:', error);
+                }
+            });
+        }
+
+    </script>
+}

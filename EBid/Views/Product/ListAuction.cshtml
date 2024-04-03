@@ -1,0 +1,66 @@
+﻿@model IEnumerable<EBid.Models.Auction>
+
+@{
+    ViewData["Title"] = "ListAuction";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h1>ListAuction</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AuctionPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuctionStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuctionEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuctionIsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuctionPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuctionStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuctionEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuctionIsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.City)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AuctionId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AuctionId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AuctionId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

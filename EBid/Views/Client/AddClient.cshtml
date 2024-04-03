@@ -1,0 +1,96 @@
+﻿@model EBid.Models.Client
+
+@{
+    ViewData["Title"] = "AddClient";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h1>AddClient</h1>
+
+<hr />
+
+<form class="container" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+    <div class="mb-3 col-sm">
+        <label asp-for="FirstName" class="control-label mb-2"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="mb-3 col-sm">
+        <label asp-for="MiddleName" class="control-label mb-2"></label>
+        <input asp-for="MiddleName" class="form-control" />
+        <span asp-validation-for="MiddleName" class="text-danger"></span>
+        </div>
+        <div class="mb-3 col-sm">
+        <label asp-for="LastName" class="control-label mb-2"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-sm">
+            <label asp-for="Email" class="control-label mb-2"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3 col-sm">
+            <label asp-for="Phone" class="control-label mb-2"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+            <div class="mb-3 col-sm">
+            <label for="clientPhoto" class="control-label mb-2">Select Photo</label>
+            <input type="file" name="clientPhoto" id="clientPhoto" accept="Image/*" class="form-control" required/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-sm">
+            <label asp-for="Line1" class="control-label mb-2"></label>
+            <input asp-for="Line1" class="form-control" />
+            <span asp-validation-for="Line1" class="text-danger"></span>
+        </div>
+        <div class="mb-3 col-sm">
+            <label asp-for="Line2" class="control-label mb-2"></label>
+            <input asp-for="Line2" class="form-control" />
+            <span asp-validation-for="Line2" class="text-danger"></span>
+        </div>
+        <div class="mb-3 col-sm">
+            <label asp-for="Landmark" class="control-label mb-2"></label>
+            <input asp-for="Landmark" class="form-control" />
+            <span asp-validation-for="Landmark" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-sm">
+            <label asp-for="City" class="control-label mb-2"></label>
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div class="mb-3 col-sm">
+            <label asp-for="State" class="control-label mb-2"></label>
+            <input asp-for="State" class="form-control" />
+            <span asp-validation-for="State" class="text-danger"></span>
+        </div>
+        <div class="mb-3 col-sm">
+            <label asp-for="Country" class="control-label mb-2"></label>
+            <input asp-for="Country" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+        <div class="mb-3 col-sm">
+            <label asp-for="PostalCode" class="control-label mb-2"></label>
+            <input asp-for="PostalCode" class="form-control" />
+            <span asp-validation-for="PostalCode" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col-sm-12 d-flex justify-content-end gap-3">
+            <input type="submit" value="Next" class="btn btn-primary px-4" />
+            <input type="reset" value="Reset" class="btn btn-secondary px-4" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

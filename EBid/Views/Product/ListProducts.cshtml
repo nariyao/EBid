@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EBid.Models.Product>
+
+@{
+    ViewData["Title"] = "ListProducts";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h1>ListProducts</h1>
+
+<table class="table text-center">
+    <thead class="bg-secondary text-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isDeleted)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isDeleted)
+            </td>
+            <td>
+                    <a asp-route="ProductDetails" asp-route-ProductId="@item.ProductId" class="btn btn-sm btn-primary px-4">Details</a>
+                    <a asp-action="EditProduct" asp-route-ProductId="@item.ProductId" class="btn btn-sm btn-warning px-4">Edit</a>
+                    <a asp-action="DeleteProduct" asp-route-ProductId="@item.ProductId" class="btn btn-sm btn-danger px-4">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

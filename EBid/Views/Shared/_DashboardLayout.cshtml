@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EBid</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EBid.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+                <button title="Dashboard" class="p-2 bg-transparent text-light border-0 d-flex flex-nowrap" data-bs-toggle="collapse" data-bs-target=".side-menu-collapse">
+                    <i class="bi bi-menu-button fs-4"></i>
+                    <span class="ps-2 fs-5">Dashboard</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <div class="d-flex" style="height:87.4vh">
+        <div role="menubar" class="bg-dark d-flex flex-column p-2" style="height:100%;">
+            <div class="my-1">
+                <a href="/dashboard" title="Home" class="p-2 text-light d-flex flex-nowrap text-decoration-none">
+                    <i class="bi bi-house fs-4"></i>
+                    <span class="side-menu-collapse ps-2 fs-5 text-nowrap">Home</span>
+                </a>
+            </div>
+            <div class="my-1">
+                <a href="/dashboard/products/list-bids" title="Bids" class="p-2 d-flex flex-nowrap text-light text-decoration-none">
+                    <i class="bi bi-card-checklist fs-4"></i>
+                    <span class="side-menu-collapse ps-2 fs-5">Bids</span>
+                </a>
+            </div>
+            <div class="my-1">
+                <a href="/dashboard/products" title="Products" class="p-2 d-flex flex-nowrap text-light text-decoration-none">
+                    <i class="bi bi-bag fs-4"></i>
+                    <span class="side-menu-collapse ps-2 fs-5">Products</span>
+                </a>
+            </div>
+            <div class="my-1">
+                <a href="/dashboard/clients" title="Client" class="p-2 d-flex flex-nowrap text-light text-decoration-none">
+                    <i class="bi bi-person fs-4"></i>
+                    <span class="side-menu-collapse ps-2 fs-5">Client</span>
+                </a>
+            </div>
+            <div class="my-1">
+                <a href="/dashboard/customers" class="p-2 d-flex flex-nowrap text-light text-decoration-none">
+                    <i class="bi bi-person-fill fs-4"></i>
+                    <span class="side-menu-collapse ps-2 fs-5">Customers</span>
+                </a>
+            </div>
+            <div class="my-1">
+                <a href="#" class="p-2 d-flex flex-nowrap text-light text-decoration-none">
+                    <i class="bi bi-gear-wide-connected fs-4"></i>
+                    <span class="side-menu-collapse ps-2 fs-5 ">Setting</span>
+                </a>
+            </div>
+        </div>
+        <main role="main" class="p-4 w-100" style="overflow-y:auto;">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <footer class="bg-dark border-top footer text-muted">
+        <div class="container p-3">
+            &copy; 2024 - EBid - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

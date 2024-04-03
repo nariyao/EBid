@@ -1,0 +1,61 @@
+﻿@model EBid.Models.Product
+
+@{
+    ViewData["Title"] = "DisplayProduct";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+<div class="row">
+    <div class="col-6">
+        <div class="d-flex" style="width:800px;height:700px">
+            <partial name="_DisplayProductImages" model="Model.Photos" />
+        </div>
+    </div>
+    <div class="col-6">
+        <div class = "row mb-4">
+            <small>Product Id: @Html.DisplayFor(model => model.ProductId)</small>
+            <h2 class="mt-2">@Html.DisplayFor(model => model.Name)</h2>
+            <div>
+                <span class="fw-bold">@Html.DisplayNameFor(model => model.Price):</span>
+                <i class="bi bi-currency-rupee"></i>
+                <span class="fw-bold">@Html.DisplayFor(model => model.Price)</span>
+            </div>
+        </div>
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.DateTime)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.DateTime)
+            </dd>
+            <dt class = "col-sm-2">
+                Status
+            </dt>
+            <dd class = "col-sm-10">
+                @((!Model.isDeleted)? "Active":"deleted")
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Client.ClientId)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Client.ClientId)
+            </dd>
+            <dt class = "col-sm-2">Client Name</dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Client.FirstName)
+                @Html.DisplayFor(model => model.Client.MiddleName)
+                @Html.DisplayFor(model => model.Client.LastName)
+            </dd>
+
+        </dl>
+        <div class="row">
+            <div class="col-12">
+                <partial name="_ProductDetails" model="@Model.ProductDetails" />
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="d-flex justify-content-end w-100 gap-4">
+        <a asp-route="EditProduct" asp-route-ProductId="@Model?.ProductId" class="px-4 btn btn-sm btn-warning bi bi-pencil-fill"> Edit</a>
+    <a asp-route="ListProducts" asp-route-isDeleted="false" class="px-4 btn btn-sm btn-primary">Back to List</a>
+</div>

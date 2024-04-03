@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "Dashdoard: Customers ";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="d-flex flex-wrap p-4 gap-4">
+    <div>
+        <a asp-route="AddCustomer" class="btn btn-secondary fs-3 fw-bolder p-5 bi bi-person-fill-add"> Add Customer</a>
+    </div>
+    <div>
+        <a asp-route="ListCustomers" class="btn btn-secondary fs-3 fw-bolder p-5 bi bi-person-rolodex"> List Customer</a>
+    </div>
+    <div>
+        <a asp-route="ListUser" asp-route-isDeleted="false" class="btn btn-secondary fs-3 fw-bolder p-5"> List Login User</a>
+    </div>
+
+</div>

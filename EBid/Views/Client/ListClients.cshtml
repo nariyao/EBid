@@ -1,0 +1,142 @@
+﻿@model IEnumerable<EBid.Models.Client>
+
+@{
+    ViewData["Title"] = "ListClients";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between">
+    <h1>ListClients</h1>
+    <div class="d-flex gap-3">
+        <div>
+            <a href="add-client" class="btn btn-lg btn-primary bi bi-person-fill-add"> Add New</a>
+        </div>
+        <div>
+            <div class="btn btn-lg btn-dark d-flex gap-3">
+                <a asp-route="ListClients" class="form-check  @((ViewBag.isDeleted == "All") ? "text-warning" : "text-light")">
+                    <input type="radio" class="form-check-input" @((ViewBag.isDeleted == "All") ? "checked" : "") />
+                    <label class="form-check-label" >All</label>
+                </a>
+                <a asp-route="ListClients" asp-route-isDeleted="true" class="form-check  @((ViewBag.isDeleted == "Deleted") ? "text-warning" : "text-light")">
+                    <input type="radio" class="form-check-input" @((ViewBag.isDeleted == "Deleted") ? "checked" : "") />
+                    <label class="form-check-label">Deleted</label>
+                </a>
+                <a asp-route="ListClients" asp-route-isDeleted="false" class="form-check  @((ViewBag.isDeleted == "NotDeleted") ? "text-warning" : "text-light")">
+                    <input type="radio" class="form-check-input" @((ViewBag.isDeleted == "NotDeleted") ? "checked" : "") />
+                    <label class="form-check-label">Not Deleted</label>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-hover text-center border-2 border-dark">
+    <thead class="bg-secondary text-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhotoUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Line1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Line2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Landmark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                    <img src=@Html.DisplayFor(modelItem => item.PhotoUrl) alt=@Html.DisplayFor(modelItem => item.PhotoUrl) width="40px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModifiedDate)
+            </td>
+            <td>
+                    <input type="checkbox" @((item.IsDeleted)?"":"checked") />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Line1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Line2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Landmark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+            <td class="d-flex justify-content-between gap-3" width="280px">
+                    <a asp-route="DisplayClient" asp-route-ClientId="@item.ClientId" class="btn btn-sm btn-primary my-3 bi bi-file-person-fill">Details</a>
+                    <a asp-route="EditClient" asp-route-ClientId="@item.ClientId" class="btn btn-sm btn-warning my-3 bi bi-pencil-square"> Edit</a>
+                    <a asp-route="DeleteClient" asp-route-ClientId=@item.ClientId class="btn btn-sm btn-danger my-3 bi bi-trash-fill"> Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

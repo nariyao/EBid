@@ -1,0 +1,91 @@
+﻿@model EBid.Models.BankAccount
+
+@{
+    ViewData["Title"] = "AddBankAccount";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+
+<h4 class="bi bi-person-fill"> Client Detail Preview</h4>
+<hr />
+<table class="w-100 border-2 border-dark">
+    <tr>
+        <td style="width:200px" class="p-2 m-auto">
+            <img src=@Model.Client.PhotoUrl alt="@Model.Client.PhotoName" style="width:100%" />
+        </td>
+        <td>
+            <table class="table table-bordered border-dark">
+                <tr>
+                    <th style="width: 110px;">First Name</th>
+                    <td>@Model.Client.FirstName</td>
+                    <th  style="width: 120px;">Middle Name</th>
+                    <td>@Model.Client.FirstName</td>
+                    <th  style="width: 110px;">Last Name</th>
+                    <td>@Model.Client.FirstName</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>@Model.Client.Email</td>
+                    <th>Phone No.</th>
+                    <td>@Model.Client.Phone</td>
+                    <th>Postal Code</th>
+                    <td>@Model.Client.PostalCode</td>
+                </tr>
+                <tr>
+                    <th  style="width: 110px;">Line 1</th>
+                    <td >@Model.Client.Line1</td>
+                    <th  style="width: 110px;">Line 2</th>
+                    <td>@Model.Client.Line2</td>
+                    <th  style="width: 110px;">Landmark</th>
+                    <td>@Model.Client.Landmark</td>
+                </tr>
+                <tr>
+                    <th  style="width: 110px;">City</th>
+                    <td>@Model.Client.City</td>
+                    <th  style="width: 110px;">State</th>
+                    <td>@Model.Client.State</td>
+                    <th  style="width: 110px;">Country</th>
+                    <td>@Model.Client.Country</td>
+                </tr>
+            </table>
+        </td>
+</table>
+<h3 class="bi bi-bank"> AddBankAccount</h3>
+<hr />
+<div class="w-75 m-auto">
+    <form class="container" action="bank-account/add-bank-accout" method="post" enctype="application/json">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-sm">
+                <label asp-for="AccountNo" class="control-label mb-2"></label>
+                <input asp-for="AccountNo" class="form-control" />
+                <span asp-validation-for="AccountNo" class="text-danger"></span>
+            </div>
+            <div class="col-sm">
+            <label asp-for="BankName" class="control-label mb-2"></label>
+                <input asp-for="BankName" class="form-control" />
+                <span asp-validation-for="BankName" class="text-danger"></span>
+            </div>
+            <div class="col-sm">
+                <label asp-for="IFSCode" class="control-label mb-2"></label>
+                <input asp-for="IFSCode" class="form-control" />
+                <span asp-validation-for="IFSCode" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-sm-12 d-flex justify-content-end gap-3">
+                <input type="hidden" name="ClientId" value="@Model.ClientId" id="ClientId" class ="form-control" />
+                <input type="submit" value="Create" class="btn btn-primary px-4" />
+                <input type="reset" value="Reset" class="btn btn-secondary px-4" />
+                <a href="/dashboard/clients/delete-client/ClientId=@Model.ClientId" class="btn btn-danger px-4" >Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

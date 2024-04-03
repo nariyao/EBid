@@ -1,0 +1,66 @@
+﻿@model EBid.Models.User;
+
+<h4>Register User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4 m-auto">
+        <form asp-action="RegisterUser" enctype="application/json">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="CustomerId" value=@TempData["CustomerId"] class="form-control" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3  mb-3">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3 ">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" value=@TempData["Email"] readonly />
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+            </div>
+            @if (ViewBag.IsAdmin)
+            {
+            <div class="form-group mb-3 ">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control">
+                    <option value="0">Waiting</option>
+                    <option value="1">Active</option>
+                    <option value="2">Deactive</option>
+                    <option value="3">Blocked</option>
+                    <option value="4">Suspended</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3 form-switch">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsEmailConfirmed" /> @Html.DisplayNameFor(model => model.IsEmailConfirmed)
+                </label>
+            </div>
+            <div class="form-group mb-3 form-switch">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAdmin" /> @Html.DisplayNameFor(model => model.IsAdmin)
+                </label>
+            </div>
+            }
+            <div class="form-group mb-3 ">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3 ">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3 d-flex justify-content-end gap-3">
+                <input type="submit" value="Register" class="btn btn-primary px-4" />
+                <input type="reset" value="Clear" class="btn btn-secondary px-4" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
