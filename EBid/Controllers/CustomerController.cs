@@ -94,5 +94,11 @@ namespace EBid.Controllers
             customer.IsDeleted = true;
             return View("ListCustomer");
         }
+
+        [NonAction]
+        protected bool CustomerExists(string value)
+        {
+            return _db.customers.Where(e => e.Email == value || e.Phone == value).Any();
+        }
     }
 }

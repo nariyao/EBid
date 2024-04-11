@@ -1,12 +1,21 @@
 ﻿
 @{
-    ViewData["Title"] = "AddCustomer";
-    ViewBag.IsAdmin = true;
-    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    ViewData["Title"] = "Add Customer";
+    if (ViewBag.IsAdmin)
+    {
+        Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+        <partial name="_AddCustomer" />
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_AuthLayout.cshtml";
+        <div class="w-75 m-auto bg-light bg-opacity-10  text-light p-4 rounded border">
+            <partial name="_AddCustomer" />
+        </div>
+    }
 }
 
 
-<partial name="_AddCustomer" />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

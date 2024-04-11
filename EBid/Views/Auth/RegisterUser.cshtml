@@ -3,10 +3,20 @@
 *@
 @{
     ViewData["Title"] = "Register New User";
-    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    if (ViewBag.IsAdmin)
+    {
+        Layout = $"~/Views/Shared/_DashboardLayout.cshtml";
+        <partial name="_RegisterUser" />
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_AuthLayout.cshtml";
+        <div class="w-25 m-auto bg-light bg-opacity-10 text-light p-4 rounded border">
+            <partial name="_RegisterUser" />
+        </div>
+    }
 }
 
-<partial name="_RegisterUser" />
 
 @section Scripts {
     @{

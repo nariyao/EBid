@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EBid.Migrations
 {
     [DbContext(typeof(EBidDbContext))]
-    [Migration("20240401045706_IntialMigration")]
+    [Migration("20240408065735_IntialMigration")]
     partial class IntialMigration
     {
         /// <inheritdoc />
@@ -43,7 +43,7 @@ namespace EBid.Migrations
                     b.Property<DateTime>("AuctionStartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ClientId")
+                    b.Property<Guid?>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductId")
@@ -92,6 +92,10 @@ namespace EBid.Migrations
                     b.Property<Guid>("AuctionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("BidStatus")
+                        .IsRequired()
+                        .HasColumnType("char(1)");
+
                     b.Property<DateTime>("BiddingDateTime")
                         .HasColumnType("datetime2");
 
@@ -100,9 +104,6 @@ namespace EBid.Migrations
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("OrderStatus")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -425,19 +426,15 @@ namespace EBid.Migrations
 
             modelBuilder.Entity("EBid.Models.Auction", b =>
                 {
-                    b.HasOne("EBid.Models.Client", "Client")
+                    b.HasOne("EBid.Models.Client", null)
                         .WithMany("Auctions")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClientId");
 
                     b.HasOne("EBid.Models.Product", "Product")
                         .WithOne("Auction")
                         .HasForeignKey("EBid.Models.Auction", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Client");
 
                     b.Navigation("Product");
                 });

@@ -144,7 +144,7 @@ namespace EBid.Migrations
                     AuctionEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuctionIsActive = table.Column<bool>(type: "bit", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ClientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ClientId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -153,8 +153,7 @@ namespace EBid.Migrations
                         name: "FK_auctions_clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "clients",
-                        principalColumn: "ClientId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ClientId");
                     table.ForeignKey(
                         name: "FK_auctions_products_ProductId",
                         column: x => x.ProductId,
@@ -213,7 +212,7 @@ namespace EBid.Migrations
                     BidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BiddingPrice = table.Column<decimal>(type: "money", nullable: false),
                     BiddingDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OrderStatus = table.Column<bool>(type: "bit", nullable: false),
+                    BidStatus = table.Column<string>(type: "char(1)", nullable: false),
                     AuctionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)

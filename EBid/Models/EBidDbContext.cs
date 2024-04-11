@@ -50,13 +50,6 @@ namespace EBid.Models
                 .HasForeignKey(e => e.ProductId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-
-            modelBuilder.Entity<Auction>()
-                .HasOne(e => e.Client)
-                .WithMany(e => e.Auctions)
-                .HasForeignKey(e => e.ClientId);
-
-
         }
 
     }

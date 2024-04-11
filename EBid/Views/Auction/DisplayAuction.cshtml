@@ -1,0 +1,84 @@
+﻿@model EBid.Models.Auction
+
+@{
+    ViewData["Title"] = "DisplayAuction";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h1>DisplayAuction</h1>
+
+<div>
+    <h4>Auction</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Product)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AuctionPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AuctionPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AuctionStartDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AuctionStartDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AuctionEndDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AuctionEndDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AuctionIsActive)
+        </dt>
+        <dd class = "col-sm-10">
+            @((Model.AuctionIsActive)?"Active":"Deactive")
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.ClientId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Product.Client.FirstName)
+        </dd>
+    </dl>
+</div>
+<div class="">
+    <a asp-route="EditAuction" asp-route-AuctionId="@Model?.AuctionId" class="btn btn-sm btn-warning px-4">Edit</a>
+    <a asp-route="ListAucton" class="btn btn-sm btn-primary px-4">Back to List</a>
+</div>
+<hr />
+@if(Model?.Bids != null)
+{
+    <table class="table table-hover">
+        <thead class="bg-secondary text-light">
+            <th>
+                Customer Name
+            </th>
+            <th>
+                Date & Time
+            </th>
+            <th>
+                Bidding Price
+            </th>
+        </thead>
+        @foreach(var bid in Model.Bids)
+        {
+            <tr>
+                <td>bid.CustomerId</td>
+            </tr>
+            <tr>
+                <td>bid.BiddingDateTime</td>
+            </tr>
+            <tr>
+                <td>bid.BiddingPrice</td>
+            </tr>
+        }
+    </table>
+}

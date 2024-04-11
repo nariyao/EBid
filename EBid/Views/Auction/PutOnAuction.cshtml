@@ -5,51 +5,50 @@
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
-<h1>PutOnAuction</h1>
-
-<h4>Auction</h4>
+<h1>Create Auction</h1>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="PutOnAuction">
+            @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group mb-3">
+                <label asp-for="ProductId" class="control-label"></label>
+                <select asp-for="ProductId" class="form-control">
+                    <option value="">-------Select Product------</option>
+                    @if (ViewBag.products != null)
+                    {
+                        @foreach (var product in ViewBag.products)
+                        {
+                            <option value="@product.ProductId">@product.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group mb-3">
                 <label asp-for="AuctionPrice" class="control-label"></label>
                 <input asp-for="AuctionPrice" class="form-control" />
                 <span asp-validation-for="AuctionPrice" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="AuctionStartDate" class="control-label"></label>
                 <input asp-for="AuctionStartDate" class="form-control" />
                 <span asp-validation-for="AuctionStartDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="AuctionEndDate" class="control-label"></label>
                 <input asp-for="AuctionEndDate" class="form-control" />
                 <span asp-validation-for="AuctionEndDate" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="AuctionIsActive" /> @Html.DisplayNameFor(model => model.AuctionIsActive)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductId" class="control-label"></label>
-                <select asp-for="ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClientId" class="control-label"></label>
-                <select asp-for="ClientId" class ="form-control" asp-items="ViewBag.ClientId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mb-3 d-flex justify-content-end gap-3">
+                <input type="submit" value="Create" class="btn btn-primary px-4" />
+                <div>
+                    <a asp-route="ProductIndex" class="btn btn-secondary px-4">Close</a>
+                </div>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

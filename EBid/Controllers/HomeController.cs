@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace EBid.Controllers
 {
+    [Route("/Home")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -13,11 +14,14 @@ namespace EBid.Controllers
             _logger = logger;
         }
 
+        [Route("")]
+        [Route("/", Name = "HomeIndex")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("privacy",Name ="Privacy")]
         public IActionResult Privacy()
         {
             return View();

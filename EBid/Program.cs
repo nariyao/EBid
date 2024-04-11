@@ -15,7 +15,7 @@ namespace EBid
             builder.Services.AddDbContext<EBidDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SQL_Server")));
             builder.Services.Configure<FormOptions>(options =>
             {
-                options.MultipartBodyLengthLimit = 100 * 1024 * 1024;
+                options.MultipartBodyLengthLimit = 100L * 1024L * 1024L;
             });
             var app = builder.Build();
 

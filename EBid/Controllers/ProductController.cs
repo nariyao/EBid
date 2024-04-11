@@ -15,7 +15,7 @@ namespace EBid.Controllers
             this._db = _db;
         }
 
-        [Route("")]
+        [Route("",Name = "ProductIndex")]
         public async Task<IActionResult> Index()
         {
             return View();

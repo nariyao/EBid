@@ -6,7 +6,6 @@ namespace EBid.Controllers
     public class DashboardController : Controller
     {
         [Route("")]
-        [Route("/")]
         public IActionResult Index()
         {
             return View();

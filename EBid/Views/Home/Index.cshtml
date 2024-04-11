@@ -1,8 +1,30 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome to eBids";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="header">
+    <div class="header-title fs-1 fw-bolder">Welcome to E-Bids</div>
+</div>
+<div class="p-4">
+    <section class="">
+        <h3>On Going Auction</h3>
+        <div id="ongoingacution">
+            <a class="card text-dark text-decoration-none" asp-route="HomeAuction" asp-route-AuctionId="" style="width: 18rem; cursor:pointer;">
+                <img src="" alt="" />
+                <div class="card-body">
+                    <h5 class="card-title">Title</h5>
+                    <small >Bidding start at</small>
+                    <h6 class="card-price bi bi-currency-rupee"> 234</h6>
+                </div>
+            </a>
+        </div>
+    </section>
+    <section class="">
+        <h3>Upcoming Auction</h3>
+        <div id="upcomingauction"></div>
+    </section>
+    <section class="">
+        <h3>Auction</h3>
+        <div id="auction"></div>
+    </section>
 </div>

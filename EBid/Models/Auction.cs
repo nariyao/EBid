@@ -23,13 +23,12 @@ namespace EBid.Models
         public bool AuctionIsActive { get; set; } = true;
 
         [Required]
-        [Display(Name ="Auction's Product Id")]
+        [Display(Name ="Product Id")]
         public Guid ProductId { get; set; }
         public Product Product { get; set; } = null!;
 
         public ICollection<Bid> Bids { get; set; } = null!;
 
-        public Guid ClientId { get; set; }
-        public Client Client { get; set; } = null!;
+
     }
 }

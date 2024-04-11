@@ -16,7 +16,8 @@ namespace EBid.Models
         public DateTime BiddingDateTime { get; set; } = DateTime.Now;
         [Required]
         [Display(Name ="Order Status")]
-        public bool OrderStatus { get; set; }
+        [Column(TypeName="char(1)")]
+        public char BidStatus { get; set; }
 
         [Required]
         [Display(Name ="Auction Id")]

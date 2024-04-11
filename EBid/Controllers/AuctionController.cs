@@ -18,8 +18,7 @@ namespace EBid.Controllers
         [Route("create-auction", Name = "CreateAuction")]
         public async Task<IActionResult> PutOnAuction()
         {
-            ViewBag.product = await _db.products.ToListAsync();
-
+            ViewBag.products = await _db.products.Where(e=>e.isDeleted==false).ToListAsync();
             return View();
         }
 
@@ -27,15 +26,30 @@ namespace EBid.Controllers
         [Route("create-auction", Name = "CreateAuction")]
         public async Task<IActionResult> PutOnAuction(Auction auction)
         {
-            return View();
+            await _db.auctions.AddAsync(auction);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("DisplayAuction", new {AuctionId=auction.AuctionId});
         }
 
         [HttpGet]
         [Route("list-auction", Name = "ListAuction")]
         public async Task<IActionResult> ListAuction()
         {
-            var auctions = await _db.auctions.ToListAsync();
+            var auctions = await _db.auctions.Include(p=>p.Product).ToListAsync();
             return View(auctions);
         }
+
+        [HttpGet]
+        [Route("view-auction-product",Name = "AuctionDetails")]
+        public async Task<IActionResult> DisplayAuction(Guid AuctionId)
+        {
+            var auction = await _db.auctions.Include(e => e.Bids.OrderByDescending(b=>b.BiddingPrice)).Include(e => e.Product.Client).SingleAsync(e => e.AuctionId == AuctionId);
+            if (auction == null)
+            {
+                return NotFound();
+            }
+            return View(auction);
+        }
+
     }
 }
