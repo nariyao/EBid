@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using EBid.Models;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Identity;
 
 namespace EBid
 {
@@ -17,11 +18,14 @@ namespace EBid
             {
                 options.MultipartBodyLengthLimit = 100L * 1024L * 1024L;
             });
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<EBidDbContext>();
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
+                app.UseStatusCodePages();
                 app.UseHttpLogging();
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -33,6 +37,7 @@ namespace EBid
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

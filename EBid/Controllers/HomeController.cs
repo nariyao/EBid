@@ -1,5 +1,6 @@
 using EBid.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace EBid.Controllers
@@ -7,17 +8,25 @@ namespace EBid.Controllers
     [Route("/Home")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly EBidDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(EBidDbContext _db)
         {
-            _logger = logger;
+           this._db = _db;
         }
 
         [Route("")]
         [Route("/", Name = "HomeIndex")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.Title = "Home";
+            
+            ViewBag.OngoingAuction = await _db.auctions.Include(e => e.Product.Photos).Where(e => e.AuctionStartDate < DateTime.Now && e.AuctionEndDate > DateTime.Now).ToListAsync();
+            
+            ViewBag.UpcomingAuction = await _db.auctions.Include(e => e.Product.Photos ).Where(e => e.AuctionStartDate > DateTime.Now).ToListAsync();
+
+            ViewBag.ListedAuction = await _db.auctions.Include(e => e.Product.Photos).Where(e => e.AuctionEndDate < DateTime.Now).ToListAsync();
+
             return View();
         }
 

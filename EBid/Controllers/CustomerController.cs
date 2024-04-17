@@ -23,7 +23,7 @@ namespace EBid.Controllers
         [Route("add-customer",Name ="AddCustomer")]
         public IActionResult AddCustomer()
         {
-
+            ViewBag.IsAdmin = true;
             return View();
         }
         [HttpPost,ValidateAntiForgeryToken]

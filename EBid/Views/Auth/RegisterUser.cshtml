@@ -3,7 +3,7 @@
 *@
 @{
     ViewData["Title"] = "Register New User";
-    if (ViewBag.IsAdmin)
+    if (ViewBag.IsAdmin==true)
     {
         Layout = $"~/Views/Shared/_DashboardLayout.cshtml";
         <partial name="_RegisterUser" />
@@ -13,6 +13,9 @@
         Layout = "~/Views/Shared/_AuthLayout.cshtml";
         <div class="w-25 m-auto bg-light bg-opacity-10 text-light p-4 rounded border">
             <partial name="_RegisterUser" />
+        </div>
+        <div>
+            <a asp-route="" class="text-warning">Login</a>
         </div>
     }
 }

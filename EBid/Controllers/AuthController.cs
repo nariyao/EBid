@@ -1,4 +1,5 @@
 ﻿using EBid.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EBid.Controllers
@@ -6,6 +7,15 @@ namespace EBid.Controllers
     [Route("/auth")]
     public class AuthController : Controller
     {
+        private readonly UserManager<IdentityUser> UserManager;
+        private readonly SignInManager<IdentityUser> SignInManager;
+
+        public AuthController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        {
+            this.UserManager = userManager;
+            this.SignInManager = signInManager;
+        }
+       
         public IActionResult Index()
         {
             return View();

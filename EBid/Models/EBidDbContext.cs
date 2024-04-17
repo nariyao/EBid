@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace EBid.Models
 {
-    public class EBidDbContext:DbContext
+    public class EBidDbContext: IdentityDbContext
     {
         public EBidDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Client> clients {  get; set; }
@@ -13,10 +15,11 @@ namespace EBid.Models
         public DbSet<Photo> photos { get; set; }
         public DbSet<Bid> bids { get; set; }
         public DbSet<Auction> auctions { get; set; }
-        public DbSet<User> users { get; set; }
+        //public DbSet<User> users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Client>()
                 .HasOne(e => e.BankAccount)
                 .WithOne(e => e.Client)

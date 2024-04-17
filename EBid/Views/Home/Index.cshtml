@@ -6,25 +6,73 @@
     <div class="header-title fs-1 fw-bolder">Welcome to E-Bids</div>
 </div>
 <div class="p-4">
-    <section class="">
-        <h3>On Going Auction</h3>
-        <div id="ongoingacution">
-            <a class="card text-dark text-decoration-none" asp-route="HomeAuction" asp-route-AuctionId="" style="width: 18rem; cursor:pointer;">
-                <img src="" alt="" />
-                <div class="card-body">
-                    <h5 class="card-title">Title</h5>
-                    <small >Bidding start at</small>
-                    <h6 class="card-price bi bi-currency-rupee"> 234</h6>
+    @if (ViewBag.OnGoingAuction != null)
+    {
+        <section>
+            <div class="text-start">
+                <div class="w-25 bg-warning px-4 py-2 text-dark fw-bolder rounded fs-5 text-left">
+                    <span>Active Auction</span>
                 </div>
-            </a>
-        </div>
-    </section>
-    <section class="">
-        <h3>Upcoming Auction</h3>
-        <div id="upcomingauction"></div>
-    </section>
-    <section class="">
-        <h3>Auction</h3>
-        <div id="auction"></div>
-    </section>
+            </div>
+            <div id="ongoingacution" class="py-4 d-flex flex-row ">
+                @foreach(var auction in (List<Auction>)ViewBag.OnGoingAuction)
+                {
+                    <a class="card text-dark text-decoration-none" style="position: relative;width:250px;height:300px" asp-route="HomeAuction" asp-route-AuctionId="@auction.AuctionId" style="width: 18rem; cursor:pointer;">
+                        <img src="@auction.Product.Photos.Single().Url" alt="" />
+                        <div class="card-body" style="position: absolute; bottom: 0;">
+                            <h5 class="card-title">@auction.Product.Name</h5>
+                            <small >Bidding start at price</small>
+                            <h6 class="card-price bi bi-currency-rupee"> @auction.AuctionPrice</h6>
+                        </div>
+                    </a>
+                }
+            </div>
+        </section>
+    }
+    @if(ViewBag.UpcomingAuction != null)
+    {
+        <section>
+            <div class="text-start">
+                <div class="w-25 bg-warning px-4 py-2 text-dark fw-bolder rounded fs-5 text-left">
+                    <span class="">Upcoming Auction</span>
+                </div>
+            </div>
+            <div id="upcomingauction">
+                @foreach (var auction in (List<Auction>)ViewBag.UpcomingAuction)
+                {
+                    <a class="card text-dark text-decoration-none" style="position: relative;width:250px;height:300px" asp-route="HomeAuction" asp-route-AuctionId="@auction.AuctionId" style="width: 18rem; cursor:pointer;">
+                        <img src="@auction.Product.Photos.Single().Url" alt="" />
+                        <div class="card-body" style="position: absolute; bottom: 0;">
+                            <h5 class="card-title">@auction.Product.Name</h5>
+                            <small>Bidding start at price</small>
+                            <h6 class="card-price bi bi-currency-rupee"> @auction.AuctionPrice</h6>
+                        </div>
+                    </a>
+                }
+            </div>
+        </section>
+    }
+    @if(ViewBag.ListedAuction != null)
+    {
+        <section class="mb-5">
+            <div class="text-start">
+                <div class="w-25 bg-warning px-4 py-2 text-dark fw-bolder rounded fs-5 text-left">
+                    <span>Listed Auction</span>
+                </div>
+            </div>
+            <div id="auction">
+                @foreach (var auction in (List<Auction>)ViewBag.ListedAuction)
+                {
+                    <a class="card text-dark text-decoration-none" style="position: relative;width:250px;height:300px" asp-route="HomeAuction" asp-route-AuctionId="@auction.AuctionId" style="width: 18rem; cursor:pointer;">
+                        <img src="@auction.Product.Photos.Single().Url" alt="" />
+                        <div class="card-body" style="position: absolute; bottom: 0;">
+                            <h5 class="card-title">@auction.Product.Name</h5>
+                            <small>Bidding start at price</small>
+                            <h6 class="card-price bi bi-currency-rupee"> @auction.AuctionPrice</h6>
+                        </div>
+                    </a>
+                }
+            </div>
+        </section>
+    }
 </div>
