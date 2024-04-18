@@ -12,6 +12,7 @@ namespace EBid.Models
         public string Name { get; set; }
 
         [Column(TypeName ="Money")]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage ="price required")]
         [Display(Name="Price")]
         public decimal Price { get; set; }

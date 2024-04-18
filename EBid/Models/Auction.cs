@@ -9,6 +9,7 @@ namespace EBid.Models
         [Required]
         public Guid AuctionId { get; set; } = Guid.NewGuid();
         [Required]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         [Column(TypeName ="money")]
         [Display(Name ="Auction Price")]
         public decimal AuctionPrice { get; set; }

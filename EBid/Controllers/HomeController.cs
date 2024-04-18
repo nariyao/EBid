@@ -21,13 +21,56 @@ namespace EBid.Controllers
         {
             ViewBag.Title = "Home";
             
-            ViewBag.OngoingAuction = await _db.auctions.Include(e => e.Product.Photos).Where(e => e.AuctionStartDate < DateTime.Now && e.AuctionEndDate > DateTime.Now).ToListAsync();
-            
-            ViewBag.UpcomingAuction = await _db.auctions.Include(e => e.Product.Photos ).Where(e => e.AuctionStartDate > DateTime.Now).ToListAsync();
+            var res = await _db.auctions.Include(e => e.Product.Photos).Where(e => e.AuctionStartDate < DateTime.Now && e.AuctionEndDate > DateTime.Now).ToListAsync();
+            if (res.Count > 0 )
+            {
+                ViewBag.OngoingAuction = res;
+            }
 
-            ViewBag.ListedAuction = await _db.auctions.Include(e => e.Product.Photos).Where(e => e.AuctionEndDate < DateTime.Now).ToListAsync();
+            res = await _db.auctions.Include(e => e.Product.Photos ).Where(e => e.AuctionStartDate > DateTime.Now).ToListAsync();
+
+            if (res.Count > 0 )
+            {
+                ViewBag.UpcomingAuction = res;
+            }
+
+            res = await _db.auctions.Include(e => e.Product.Photos).Where(e => e.AuctionEndDate < DateTime.Now).ToListAsync();
+
+            if (res.Count > 0)
+            {
+                ViewBag.ListedAuction = res;
+            }
 
             return View();
+        }
+
+        [HttpGet,Route("s",Name = "HomeAuction")]
+        public async Task<IActionResult> ViewAuction(Guid AuctionId,string AuctionType)
+        {
+            if (AuctionId == Guid.Empty )
+            {
+                return RedirectToAction("HomeIndex");
+            }
+
+            var auction = await _db.auctions.Include(a => a.Product.Photos).Include( a=>a.Product.ProductDetails).FirstOrDefaultAsync(a => a.AuctionId == AuctionId);
+
+            switch (AuctionType)
+            {
+                case "Listed" : 
+                    break;
+                case "OnGoing" : 
+                    break;
+                case "Upcoming" : 
+                    break;
+            }
+
+
+            if (auction == null)
+            {
+                return RedirectToAction();
+            }
+
+            return View(auction);
         }
 
         [Route("privacy",Name ="Privacy")]

@@ -18,7 +18,8 @@ namespace EBid.Controllers
         [Route("create-auction", Name = "CreateAuction")]
         public async Task<IActionResult> PutOnAuction()
         {
-            ViewBag.products = await _db.products.Where(e=>e.isDeleted==false).ToListAsync();
+            var p = await _db.products.Include(p => p.Auction).ToListAsync();
+            ViewBag.products = p.FindAll(a => a.Auction == null);
             return View();
         }
 

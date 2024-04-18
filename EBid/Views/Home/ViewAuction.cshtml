@@ -1,0 +1,104 @@
+﻿@model EBid.Models.Auction
+
+@{
+    ViewData["Title"] = Model.Product.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row p-4">
+    <div class="col-6 d-flex flex-column flex-nowrap">
+        <div class="d-flex" style="width:100%;height:400px">
+            <partial name="_DisplayProductImages" model="@Model.Product.Photos" />
+        </div>
+        @if(ViewBag.Show != "Listed")
+        {
+            <div class="d-flex">
+                <div style="width:100px;"></div>
+                @if(ViewBag.Show == "OnGoing")
+                {
+                    <button type="button" class="btn btn-lg btn-warning w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        start bidding
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-lg btn-warning w-100">
+                        Coming soon
+                    </button>
+                }
+                <!-- Model -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Input your bidding price</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="needs-validation" action="/" method="post" id="bidAt" enctype="application/json">
+                                    @Html.AntiForgeryToken()
+                                    <input name="CustomerId" value="" />
+                                    <input name="AuctionId" value="" />
+                                    <div class="form-group">
+                                        <input class="form-control" name="Action" value="" min="@Model.AuctionPrice" placeholder="Enter bidding price" pattern="^[0-9]+$" aria-describedby="inputGroupPrepend" required />
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        error
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" form="bidAt" class="btn btn-primary">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-6">
+        <div class="row mb-4">
+            <h2 class="mt-2">@Html.DisplayFor(model => model.Product.Name)</h2>
+            <div class="mb-3">
+                <span class="fw-bold">Price:</span>
+                <span class="fw-bold">@Model.AuctionPrice.ToString("C")</span>
+            </div>
+            <div>
+                <span class="fw-bold text-secondary">@Html.DisplayNameFor(model => model.AuctionStartDate):</span>
+                <span class="">@Model.AuctionStartDate</span>
+            </div>
+            <div>
+                <span class="fw-bold text-secondary">@Html.DisplayNameFor(model => model.AuctionEndDate):</span>
+                <span class="">@Model.AuctionEndDate</span>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <partial name="_ProductDetails" model="@Model.Product.ProductDetails" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+        }, false)
+    })
+    }) ()
+</script>

@@ -6,8 +6,6 @@
     <div class="header-title fs-1 fw-bolder">Welcome to E-Bids</div>
 </div>
 <div class="p-4">
-    @if (ViewBag.OnGoingAuction != null)
-    {
         <section>
             <div class="text-start">
                 <div class="w-25 bg-warning px-4 py-2 text-dark fw-bolder rounded fs-5 text-left">
@@ -15,43 +13,49 @@
                 </div>
             </div>
             <div id="ongoingacution" class="py-4 d-flex flex-row ">
-                @foreach(var auction in (List<Auction>)ViewBag.OnGoingAuction)
+                @if (ViewBag.OnGoingAuction != null)
                 {
-                    <a class="card text-dark text-decoration-none" style="position: relative;width:250px;height:300px" asp-route="HomeAuction" asp-route-AuctionId="@auction.AuctionId" style="width: 18rem; cursor:pointer;">
-                        <img src="@auction.Product.Photos.Single().Url" alt="" />
-                        <div class="card-body" style="position: absolute; bottom: 0;">
-                            <h5 class="card-title">@auction.Product.Name</h5>
-                            <small >Bidding start at price</small>
-                            <h6 class="card-price bi bi-currency-rupee"> @auction.AuctionPrice</h6>
-                        </div>
-                    </a>
+                    @foreach(var auction in (List<Auction>)ViewBag.OnGoingAuction)
+                    {
+                        <a class="card text-dark text-decoration-none" style="position: relative;width:250px;height:300px" asp-route="HomeAuction" asp-route-AuctionId="@auction.AuctionId" style="width: 18rem; cursor:pointer;">
+                            <img src="@auction.Product.Photos.First().Url" alt="" />
+                            <div class="card-body" style="position: absolute; bottom: 0;">
+                                <h5 class="card-title">@auction.Product.Name</h5>
+                                <small >Bidding start at price</small>
+                                <h6 class="card-price"> @auction.AuctionPrice.ToString("C")</h6>
+                            </div>
+                        </a>
+                    }
+                }else{
+                    <h6 class="text-secondary">Currently, there is no active auction.</h6>
                 }
             </div>
         </section>
-    }
-    @if(ViewBag.UpcomingAuction != null)
-    {
         <section>
             <div class="text-start">
                 <div class="w-25 bg-warning px-4 py-2 text-dark fw-bolder rounded fs-5 text-left">
                     <span class="">Upcoming Auction</span>
                 </div>
             </div>
-            <div id="upcomingauction">
-                @foreach (var auction in (List<Auction>)ViewBag.UpcomingAuction)
+        <div id="upcomingauction" class="py-4 d-flex flex-row ">
+                @if(ViewBag.UpcomingAuction != null)
                 {
-                    <a class="card text-dark text-decoration-none" style="position: relative;width:250px;height:300px" asp-route="HomeAuction" asp-route-AuctionId="@auction.AuctionId" style="width: 18rem; cursor:pointer;">
-                        <img src="@auction.Product.Photos.Single().Url" alt="" />
-                        <div class="card-body" style="position: absolute; bottom: 0;">
-                            <h5 class="card-title">@auction.Product.Name</h5>
-                            <small>Bidding start at price</small>
-                            <h6 class="card-price bi bi-currency-rupee"> @auction.AuctionPrice</h6>
-                        </div>
-                    </a>
+                    @foreach (var auction in (List<Auction>)ViewBag.UpcomingAuction)
+                    {
+                        <a class="card text-dark text-decoration-none" style="position: relative;width:250px;height:300px" asp-route="HomeAuction" asp-route-AuctionId="@auction.AuctionId" style="width: 18rem; cursor:pointer;">
+                            <img src="@auction.Product.Photos.First().Url" alt="" />
+                            <div class="card-body" style="position: absolute; bottom: 0;">
+                                <h5 class="card-title">@auction.Product.Name</h5>
+                                <small>Bidding start at price</small>
+                                <h6 class="card-price"> @auction.AuctionPrice.ToString("C")</h6>
+                            </div>
+                        </a>
+                    }
+                }else{
+                    <h6 class="text-secondary">Currently, there is no upcoming auction.</h6>
                 }
             </div>
         </section>
-    }
     @if(ViewBag.ListedAuction != null)
     {
         <section class="mb-5">
@@ -60,15 +64,15 @@
                     <span>Listed Auction</span>
                 </div>
             </div>
-            <div id="auction">
+            <div id="auction" class="py-4 d-flex flex-row ">
                 @foreach (var auction in (List<Auction>)ViewBag.ListedAuction)
                 {
                     <a class="card text-dark text-decoration-none" style="position: relative;width:250px;height:300px" asp-route="HomeAuction" asp-route-AuctionId="@auction.AuctionId" style="width: 18rem; cursor:pointer;">
-                        <img src="@auction.Product.Photos.Single().Url" alt="" />
+                        <img src="@auction.Product.Photos.First().Url" alt="" />
                         <div class="card-body" style="position: absolute; bottom: 0;">
                             <h5 class="card-title">@auction.Product.Name</h5>
                             <small>Bidding start at price</small>
-                            <h6 class="card-price bi bi-currency-rupee"> @auction.AuctionPrice</h6>
+                            <h6 class="card-price"> @auction.AuctionPrice.ToString("C")</h6>
                         </div>
                     </a>
                 }
