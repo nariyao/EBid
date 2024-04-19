@@ -6,7 +6,7 @@ namespace EBid.Models
     public class Bid
     {
         [Display(Name ="Order Id")]
-        public Guid BidId { get; set; }
+        public Guid BidId { get; set; }= Guid.NewGuid();
         [Required]
         [Column(TypeName ="money")]
         [Display(Name ="Bidding Price")]
@@ -15,9 +15,9 @@ namespace EBid.Models
         [Display(Name ="Bidding Date and Time")]
         public DateTime BiddingDateTime { get; set; } = DateTime.Now;
         [Required]
-        [Display(Name ="Order Status")]
-        [Column(TypeName="char(1)")]
-        public char BidStatus { get; set; }
+        [Display(Name = "Order Status")]
+        [Column(TypeName = "char(1)")]
+        public char BidStatus { get; set; } = 'P';
 
         [Required]
         [Display(Name ="Auction Id")]

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<EBid.Models.Bid>
+
+@{
+    ViewData["Title"] = "ListBids";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h1>ListBids</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BiddingPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BiddingDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BidStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Auction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Email)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BiddingPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BiddingDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BidStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Auction.AuctionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.FirstName)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

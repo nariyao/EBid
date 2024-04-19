@@ -1,5 +1,7 @@
 ﻿using EBid.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace EBid.Controllers
@@ -23,15 +25,14 @@ namespace EBid.Controllers
         [Route("add-customer",Name ="AddCustomer")]
         public IActionResult AddCustomer()
         {
-            ViewBag.IsAdmin = true;
             return View();
         }
         [HttpPost,ValidateAntiForgeryToken]
         [Route("add-customer",Name ="AddCustomer")]
-        public IActionResult AddCustomer(Customer customer,IFormFile customerPhoto)
+        public async Task<IActionResult> AddCustomer(Customer customer,IFormFile customerPhoto)
         {
-            var IsEmailExist = _db.customers.SingleOrDefault(e=>e.Email == customer.Email);
-            var IsPhoneExists = _db.customers.SingleOrDefault(e=> e.Phone == customer.Phone);
+            var IsEmailExist = await _db.customers.SingleOrDefaultAsync(e=>e.Email == customer.Email);
+            var IsPhoneExists = await _db.customers.SingleOrDefaultAsync(e=> e.Phone == customer.Phone);
             if(IsEmailExist!= null || IsPhoneExists!=null)
             {
                 if(IsEmailExist==null){
@@ -47,12 +48,12 @@ namespace EBid.Controllers
             {
                 customer.SavePhoto(customerPhoto);
             }
-            //_db.customers.Add(customer);
-            TempData["CustomerId"] = customer.CustomerId;
-            TempData["Email"] = customer.Email;
-            return RedirectToAction("RegisterUser", "Auth",new {CustomerId = customer.CustomerId});
+            await _db.customers.AddAsync(customer);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("RegisterUser", "Auth", new { CustomerId = customer.CustomerId });
         }
 
+        [Authorize(Roles = "Admin")]
         [Route("list-customers",Name ="ListCustomers")]
         public IActionResult ListCustomers(Int16 status, bool? isDeleted)
         {

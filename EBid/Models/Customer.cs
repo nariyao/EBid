@@ -9,7 +9,7 @@ namespace EBid.Models
         [Display(Name ="Customer Id")]
         public Guid CustomerId { get; set; }= Guid.NewGuid();
         public ICollection<Bid>? Orders { get; set; }
-        public User User { get; set; }
+        public UserModal User { get; set; }
 
         public bool SavePhoto(IFormFile photo)
         {

@@ -1,10 +1,12 @@
-﻿using EBid.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using EBid.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EBid.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("/dashboard/products/")]
     public class ProductController : Controller
     {
@@ -16,7 +18,7 @@ namespace EBid.Controllers
         }
 
         [Route("",Name = "ProductIndex")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -145,7 +147,7 @@ namespace EBid.Controllers
         [Route("list-bids",Name ="ListBids")]
         public async Task<IActionResult> ListBids()
         {
-            var bids = await _db.bids.ToListAsync();
+            var bids = await _db.bids.Include(a => a.Customer).Include(b=>b.Product).ToListAsync();
             return View(bids);
         }
     }

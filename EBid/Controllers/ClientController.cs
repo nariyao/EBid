@@ -1,4 +1,5 @@
 ﻿using EBid.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -8,6 +9,7 @@ using System.IO;
 namespace EBid.Controllers
 {
     [Route("/dashboard/clients/")]
+    [Authorize(Roles = "Admin")]
     public class ClientController : Controller
     {
         private readonly EBidDbContext _db;

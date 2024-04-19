@@ -1,10 +1,12 @@
 ﻿using EBid.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EBid.Controllers
 {
     [Route("/dashboard/auctions/")]
+    [Authorize(Roles = "Admin")]
     public class AuctionController : Controller
     {
         private readonly EBidDbContext _db;

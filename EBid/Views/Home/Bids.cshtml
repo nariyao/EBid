@@ -1,0 +1,30 @@
+﻿@model IEnumerable<EBid.Models.Bid>
+
+@{
+    ViewData["Title"] = $"{User?.Identity?.Name} Bids";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="p-4 d-flex flex-row ">
+    @if(Model != null)
+    {
+        @foreach (var Bid in Model)
+        {
+            <a class="card text-dark text-decoration-none" style="position: relative;width:250px;height:300px" asp-route="HomeAuction" asp-route-AuctionId="@Bid.AuctionId" asp-route-AuctionType="OnGoing" style="width: 18rem; cursor:pointer;">
+                <img src="@Bid.Product.Photos.First().Url" alt="" />
+                <div class="card-body" style="position: absolute; bottom: 0;">
+                    <h5 class="card-title">@Bid.Product.Name</h5>
+                    <small>Your bidding Amount</small>
+                    <h6 class="card-price"> @Bid.BiddingPrice.ToString("C")</h6>
+                    <div class="d-flex flex-row">
+                        <span>Date: </span>
+                        <span>@Bid.BiddingDateTime.ToLongDateString()</span>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+    else
+    {
+        <h4>No bids</h4>
+    }
+</div>

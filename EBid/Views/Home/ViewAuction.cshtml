@@ -17,9 +17,46 @@
                 <div style="width:100px;"></div>
                 @if(ViewBag.Show == "OnGoing")
                 {
-                    <button type="button" class="btn btn-lg btn-warning w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        start bidding
-                    </button>
+                    <div class="d-flex flex-column w-100 gap-3">
+                        @if (ViewBag.YourBid == null)
+                        {
+                            <button type="button" class="btn btn-lg btn-warning w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                start bidding
+                            </button>
+                        }
+                        else
+                        {
+                            <div class="bg-info rounded py-2 px-4 fs-5">
+                                <span>Your bidding amount is </span>
+                                <span>@ViewBag.YourBid.BiddingPrice</span>
+                            </div>
+                        }
+                        <details>
+                            <summary class="px-4 py-2 fs-5" style="background-color: #e5e5f1">
+                                Display Bidders
+                            </summary>
+                            <table class="table table-hover table-bordered" style="overflow-y:auto">
+                                <thead class="bg-dark text-light">
+                                    <tr>
+                                        <th>Bidder Name</th>
+                                        <th>Bidding Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.ListBidders != null)
+                                    {
+                                        @foreach (var bid in (List<Bid>)ViewBag.ListBidders)
+                                        {
+                                            <tr>
+                                                <td>@($"{bid.Customer.FirstName} {bid.Customer.MiddleName} {bid.Customer.LastName}")</td>
+                                                <td>@bid.BiddingPrice.ToString("C")</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </details>
+                    </div>
                 }
                 else
                 {
@@ -36,17 +73,26 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form class="needs-validation" action="/" method="post" id="bidAt" enctype="application/json">
-                                    @Html.AntiForgeryToken()
-                                    <input name="CustomerId" value="" />
-                                    <input name="AuctionId" value="" />
-                                    <div class="form-group">
-                                        <input class="form-control" name="Action" value="" min="@Model.AuctionPrice" placeholder="Enter bidding price" pattern="^[0-9]+$" aria-describedby="inputGroupPrepend" required />
-                                    </div>
-                                    <div class="invalid-feedback">
-                                        error
-                                    </div>
-                                </form>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <form class="needs-validation" asp-route="HomePlaceBid" method="post" id="bidAt" enctype="application/json">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="UserName" value="@User?.Identity?.Name" />
+                                        <input type="hidden" name="AuctionId" value="@Model.AuctionId" />
+                                        <input type="hidden" name="ProductId" value="@Model.ProductId" />
+                                        <div class="form-group">
+                                            <input class="form-control" name="BidPrice" value="" min="@Model.AuctionPrice" placeholder="Enter bidding price" pattern="^[0-9]+$" aria-describedby="inputGroupPrepend" required />
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            error
+                                        </div>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <small>Login first</small>
+                                    <a asp-route="Login" asp-route-return="">Login</a>
+                                }
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -55,6 +101,26 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        }
+        else
+        {
+            <div>
+                @if (ViewBag.Listed_Winner != null)
+                {
+                    
+                <h3>Our Winner is 
+                    <span>
+                        @($"{ViewBag.Listed_Winner.Customer.FirstName} {ViewBag.Listed_Winner.Customer.MiddleName} {ViewBag.Listed_Winner.Customer.LastName}") 
+                    </span>
+                    who place the heighest bidding price 
+                    <span>@ViewBag.Listed_Winner.BiddingPrice.ToString("C")</span>
+                    </h3>
+                }
+                else
+                {
+                    <h5 class="text-danger">No one bids, so there is no winner or loser.</h5>
+                }
             </div>
         }
     </div>
