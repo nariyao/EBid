@@ -55,9 +55,9 @@ namespace EBid.Controllers
 
         [Authorize(Roles = "Admin")]
         [Route("list-customers",Name ="ListCustomers")]
-        public IActionResult ListCustomers(Int16 status, bool? isDeleted)
+        public IActionResult ListCustomers()
         {
-            List<Customer> customers = new List<Customer>();
+            var customers = _db.customers.ToList();
             return View(customers);
         }
 
@@ -90,10 +90,21 @@ namespace EBid.Controllers
         }
 
         [Route("delete-customer",Name ="DeleteCustomer")]
-        public IActionResult DeleteCustomer(Guid CustomerId) {
-            Customer customer = _db.customers.Single( x=> x.CustomerId==CustomerId);
-            customer.IsDeleted = true;
-            return View("ListCustomer");
+        public async Task <IActionResult> DeleteCustomer(Guid CustomerId) {
+            Customer? customer = await _db.customers.FindAsync(CustomerId);
+            if(customer != null)
+            {
+                customer.IsDeleted = true;
+                await _db.SaveChangesAsync();
+            }
+            return RedirectToRoute("ListCustomers");
+        }
+
+        [Route("list-login-user", Name ="ListLoginUser")]
+        public async Task <IActionResult> ListLoginUser()
+        {
+            ViewBag.Users = await _db.Users.ToListAsync();
+            return View();
         }
 
         [NonAction]

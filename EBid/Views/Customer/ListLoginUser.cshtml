@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "List of login user";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between">
+    <h1>List of login user</h1>
+</div>
+
+<table class="table table-hover text-center border-2 border-dark">
+    <thead class="bg-secondary text-light">
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Phone
+            </th>
+    </thead>
+    <tbody>
+        @foreach (var LoginUser in ViewBag.Users)
+        {
+            <tr>
+                <td>
+                    @LoginUser.UserName
+                </td>
+                <td>
+                    @LoginUser.Email
+                </td>
+                <td>
+                    @LoginUser.PhoneNumber
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

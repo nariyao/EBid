@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Add Customer";
-    if (ViewBag.IsAdmin)
+    @if (User.IsInRole("Admin"))
     {
         Layout = "~/Views/Shared/_DashboardLayout.cshtml";
         <partial name="_AddCustomer" />

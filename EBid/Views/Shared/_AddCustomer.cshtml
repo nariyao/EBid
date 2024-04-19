@@ -1,7 +1,7 @@
 ﻿@model EBid.Models.Customer
 
 
-@if (ViewBag.IsAdmin)
+@if (User.IsInRole("Admin"))
 {
     <h4>Add New Customer Details</h4>
 }

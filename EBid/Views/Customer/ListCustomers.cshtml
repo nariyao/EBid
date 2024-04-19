@@ -64,7 +64,7 @@
                     @Html.DisplayFor(modelItem => item.Phone)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                    <input type="checkbox" @((!item.IsDeleted) ? "" : "checked") />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.City)
@@ -79,9 +79,9 @@
                     @Html.DisplayFor(modelItem => item.PostalCode)
                 </td>
                 <td class="d-flex justify-content-between gap-3" width="280px">
-                    <a asp-action="EditCustomer" asp-route-id="@item.CustomerId" class="btn btn-sm btn-warning bi bi-pen-fill"> Edit</a>
-                    <a asp-action="CustomerDetails" asp-route-id="@item.CustomerId" class="btn btn-sm btn-warning bi bi-person"> Details</a>
-                    <a asp-action="DeleteCustomer" asp-route-id="@item.CustomerId" class="btn btn-sm btn-warning bi bi-trash-fill"> Delete</a>
+                    <a asp-action="EditCustomer" asp-route-CustomerId="@item.CustomerId" class="btn btn-sm btn-warning bi bi-pen-fill"> Edit</a>
+                    <a asp-action="CustomerDetails" asp-route-CustomerId="@item.CustomerId" class="btn btn-sm btn-primary bi bi-person"> Details</a>
+                    <a asp-action="DeleteCustomer" asp-route-CustomerId="@item.CustomerId" class="btn btn-sm btn-danger bi bi-trash-fill"> Delete</a>
                 </td>
             </tr>
         }
